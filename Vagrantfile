@@ -60,8 +60,6 @@ Vagrant.configure(2) do |config|
   ## Provisioning to do on each "vagrant up"
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     sudo tzupdate 2> /dev/null
-    # Assignment 3
-    sudo modprobe tcp_probe port=5001 full=1
   SHELL
 
   ## CPU & RAM
