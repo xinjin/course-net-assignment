@@ -2,7 +2,7 @@
 
 ### Due Friday February 15
 
-Welcome to EN.601.414/614: Computer Networks! Through this and the following  assignments, you will gain hands-on experience with real-world network programming.  You will write programs that allow your computer to communicate with another, be it across the room or across the world.
+Welcome to EN.601.414/614: Computer Networks! Through this and the following assignments, you will gain hands-on experience with real-world network programming.  You will write programs that allow your computer to communicate with another, be it across the room or across the world.
 
 The programming assignments are designed to be challenging but manageable in the time allotted. If you have questions, want to suggest clarifications, or are struggling with any of the assignments this semester, please come to office hours, ask questions on Piazza, or talk to an instructor before or after class.
 
@@ -62,7 +62,7 @@ Run `git clone https://github.com/xinjin/course-net-assignment` to download the 
 `cd course-net-assignment` to enter the course assignment directory.
 
 ### Step 6: Provision virtual machine using Vagrant
-From the `assignments` directory you just entered, run the command  `vagrant up` to start the VM and  provision it according to the Vagrantfile. You will likely have to wait several minutes. You may see warnings/errors in red, such as "default: stdin: is not a tty", but you shouldn't have worry about them.
+From the `course-net-assignment` directory you just entered, run the command  `vagrant up` to start the VM and  provision it according to the Vagrantfile. You will likely have to wait several minutes. You may see warnings/errors in red, such as "default: stdin: is not a tty", but you shouldn't have worry about them.
 
 **Note 1**: The following commands will allow you to stop the VM at any point (such as when you are done working on an assignment for the day):
 * `vagrant suspend` will save the state of the VM and stop it.
@@ -78,7 +78,7 @@ You must be in some subdirectory of the directory containing the Vagrantfile to 
 
 Run `vagrant ssh` from your terminal. This is the command you will use every time you want to access the VM. If it works, your terminal prompt will change to `vagrant@mininet:~$`. All further commands will execute on the VM. You can then run `cd /vagrant` to get to the course directory that's shared between your regular OS and the VM.
 
-Vagrant is especially useful because of this shared directory structure.  You don't need to copy files to and from the VM. Any file or directory in the `assignments` directory where the `Vagrantfile` is located is automatically shared between your computer and the virtual machine. This means you can use your IDE of choice from outside the VM to write your code (but will still have to build and run within the VM).
+Vagrant is especially useful because of this shared directory structure.  You don't need to copy files to and from the VM. Any file or directory in the `course-net-assignment` directory where the `Vagrantfile` is located is automatically shared between your computer and the virtual machine. This means you can use your IDE of choice from outside the VM to write your code (but will still have to build and run within the VM).
 
 The command `logout` will stop the SSH connection at any point.
 
@@ -115,7 +115,7 @@ The client and server programs in both languages should meet the following speci
 
 ### Getting started
 
-Do all building and testing on the Vagrant VM. You may either write your code on the Vagrant VM (both Emacs and Vim text editors are pre-installed) or directly on your OS (allowing you to use any editor you ahev installed). After running `vagrant ssh` from your terminal, run `cd /vagrant` to get to the course directory.
+Do all building and testing on the Vagrant VM. You may either write your code on the Vagrant VM (both Emacs and Vim text editors are pre-installed) or directly on your OS (allowing you to use any editor you have installed). After running `vagrant ssh` from your terminal, run `cd /vagrant` to get to the course directory.
 
 We have provided scaffolding code in the `assignment1/client_server/` directory.
 *You should read and understand this code before starting to program.*
@@ -124,7 +124,7 @@ You should program only in the locations of the provided files marked with `TODO
 
 The following sections provide details for the client and server programs in each language.
 
-**Note**: We recommend to finish the Python part first. It is easier then the C part. You gain confidence after you finish the Python part.
+**Note**: We recommend to finish the Python part first. It is easier than the C part. You gain more confidence after you finish the Python part.
 
 ### C
 The classic "Beej's Guide to Network Programming" is located here: https://beej.us/guide/bgnet/html/single/bgnet.html.
@@ -153,7 +153,7 @@ The server should be run as `python server-python.py [port] > [output file]`. Th
 
 You should test your implementations by attempting to send messages from your clients to your servers. The server can be run in the background (append a `&` to the command) or in a separate SSH window. You should use `127.0.0.1` as the server IP and a high server port number between 10000 and 60000. You can kill a background server with the command `fg` to bring it to the foreground then `ctrl-c`.
 
-The Bash script `test_client_server.sh` will test your implementation by attempting to send several different messages between all 4 combinations of your clients and servers (C client to C server, C client to Python/Go server, etc.). The messages are the following:
+The Bash script `test_client_server.sh` will test your implementation by attempting to send several different messages between all 4 combinations of your clients and servers (C client to C server, C client to Python server, etc.). The messages are the following:
 
 0. The short message "Hello, world!\n"
 0. A long, randomly generated alphanumeric message
@@ -182,7 +182,7 @@ Here are some debugging tips. If you are still having trouble, ask a question on
 
 ### Q&A
 * **I'm getting an error when I run the command `vagrant up`. What do I do?** Many errors/warnings are not a problem and do not need to be addressed, such as `==> default: stdin: is not a tty`. Usually, errors starting with `==> default` should not be worried about, but others should, in particular if they cause the process to be aborted. Use `vagrant status` to see if the VM is running after `vagrant up`; if it is not, then there is a real problem. Here are some known errors and how to fix them:
-    * **"A Vagrant environment or target machine is required to run this command..."**: you must run `vagrant up` from a subdirectory of the directory containing the Vagrantfile (in the case, `assignments`).
+    * **"A Vagrant environment or target machine is required to run this command..."**: you must run `vagrant up` from a subdirectory of the directory containing the Vagrantfile (in the case, `course-net-assignment`).
     * **"Vagrant cannot forward the specified ports on this VM, since they would collide with some other application that is already listening on these ports..."**: perhaps you cloned the repository twice and the VM is already running on one of them. Since they both use the same port, they cannot run at the same time. You may also have some other application using port 8888. To help find what is using it, follow [these](http://osxdaily.com/2014/05/20/port-scanner-mac-network-utility/) instructions for macOS, [these](https://techtalk.gfi.com/scan-open-ports-in-windows-a-quick-guide/) for Windows and [these](https://wiki.archlinux.org/index.php/Nmap#Port_scan) for Linux (you may have to install `nmap`). Use 127.0.0.1 as the IP and 8888-8888 as the port range in your port scan.
 
   If this did not help you fix the problem, please ask on Piazza or at office hours.
