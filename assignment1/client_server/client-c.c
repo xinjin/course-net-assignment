@@ -53,7 +53,11 @@ int client(char *server_ip, char *server_port) {
 
   // send data
   char buffer[SEND_BUFFER_SIZE] = "Hello, world!\n";
-  send(sock, buffer, SEND_BUFFER_SIZE, 0);
+  send(sock, buffer, strlen(buffer), 0);
+
+  // close socket
+  close(sock);
+
   return 0;
 }
 

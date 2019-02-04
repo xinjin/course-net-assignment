@@ -74,6 +74,9 @@ int server(char *server_port) {
   fwrite(buffer, recv_bytes, 1, stdout);
   fflush(stdout);
 
+  // close socket
+  close(sock);
+
   return 0;
 }
 
