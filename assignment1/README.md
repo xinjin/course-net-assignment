@@ -2,7 +2,7 @@
 
 ### Due Friday February 15
 
-Welcome to EN.601.414/614: Computer Networks! Through this and the following  assignments, you will gain hands-on experience with real-world network programming.  You will write a program that allows your computer to communicate with another, be it across the room or across the world. You will program a router to deliver information to the right destination in a network with thousands of nodes.  You will learn how decisions made by protocol designers and network administrators affect Internet performance.  You will analyze data from Princeton's own network to detect security threats and learn how to prevent them.
+Welcome to EN.601.414/614: Computer Networks! Through this and the following  assignments, you will gain hands-on experience with real-world network programming.  You will write programs that allow your computer to communicate with another, be it across the room or across the world.
 
 The programming assignments are designed to be challenging but manageable in the time allotted. If you have questions, want to suggest clarifications, or are struggling with any of the assignments this semester, please come to office hours, ask questions on Piazza, or talk to an instructor before or after class.
 
@@ -195,3 +195,6 @@ Submit the assignment by uploading your modified client and server files to [Gra
 We will grade your assignments by running the `test_client_server.sh` script. Double check the specifications above and perform your own tests before submitting.
 
 Code that does not compile is graded harshly; if you want partial credit on code that doesn't compile, comment it out and make sure your file compiles!
+
+#### Acknowledgement
+This assignment is modeled after a [similar assignment](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment1) at Princeton University.
