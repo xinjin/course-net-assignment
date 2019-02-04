@@ -28,8 +28,8 @@ int server(char *server_port) {
   int server_fd;
   if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
   {
-      perror("socket failed");
-      exit(EXIT_FAILURE);
+    perror("socket failed");
+    exit(EXIT_FAILURE);
   }
 
   // create socket address
@@ -38,8 +38,8 @@ int server(char *server_port) {
   int opt = 1;
   if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
   {
-      perror("setsockopt");
-      exit(EXIT_FAILURE);
+    perror("setsockopt failed");
+    exit(EXIT_FAILURE);
   }
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
@@ -48,15 +48,15 @@ int server(char *server_port) {
   // bind socket to address
   if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0)
   {
-      perror("bind failed");
-      exit(EXIT_FAILURE);
+    perror("bind failed");
+    exit(EXIT_FAILURE);
   }
 
   // listen to incoming connections
   if (listen(server_fd, 1) < 0)
   {
-      perror("listen");
-      exit(EXIT_FAILURE);
+    perror("listen failed");
+    exit(EXIT_FAILURE);
   }
 
   // accept a connection
@@ -64,8 +64,8 @@ int server(char *server_port) {
   int addrlen = sizeof(address);
   if ((sock = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)
   {
-      perror("accept");
-      exit(EXIT_FAILURE);
+    perror("accept failed");
+    exit(EXIT_FAILURE);
   }
 
   // receive message
