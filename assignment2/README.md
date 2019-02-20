@@ -32,13 +32,23 @@ The ACK `seq_num` values for `START` and `END` messages should both be set to wh
 ### Packet Size
 An important limitation is the maximum size of your packets. The UDP protocol has an 8 byte header, and the IP protocol underneath it has a header of 20 bytes. Because we will be using Ethernet networks, which have a maximum frame size of 1500 bytes, this leaves 1472 bytes for your entire `packet` structure (including both the header and the chunk of data).
 
+### Outline
+
 Overall, this assignment has the following components:
 
 * [Part 1](#part1): Implement `sender`
 * [Part 2](#part2): Implement `receiver`
 * [Part 3](#part3): Optimizations
-* [Tips](#tips): Tips
+* [Important notes](#tips)
 * [Submission Instructions](#submission-instr)
+
+Similar to assignement 1, we provide scaffolding code in `sender_reciver`. We use the same VM as assignment 1.
+
+* Use `vagrant up` to boot the VM.
+* Use `vagrant ssh` to log into the VM.
+* Use `vagrant suspend` to save the state of the VM and stop it.
+* Use `vagrant halt` to gracefully shutdown the VM operating system and power down the VM.
+* Use `sudo pip install scapy` in the VM to install `scapy` package required by this assignment.
 
 ## Learning Outcomes
 
@@ -128,7 +138,7 @@ For a more concrete example, here is how your improved `sender` and `receiver` s
 The command line parameters passed to these new `sender` and `receiver` are the same as the previous two sections.
 
 <a name="tips"></a>
-## Important Notes
+## Impotant Notes
 
 * **Please closely follow updates on Piazza**. All further clarifications will be posted on Piazza via pinned Instructor Notes. We recommend you **follow** these notes to receive updates in time.
 * You **MUST NOT** use TCP sockets.
