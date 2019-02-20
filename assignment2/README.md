@@ -153,7 +153,16 @@ You must submit:
 * The source code for `sender` and `receiver` from part 3: all source files should be in a folder called `RTP-opt`.
 * Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 95KRDN.
 
-##
+## Additional Challenges
+
+For students that find this assignment not challenging enough, you can
+
+* Complete it individually.
+* Complete it with C.
+* Allow the receiver to receive messages from multiple concurrent senders.
+* Add congestion control to the sender and receiver, so that the sender and receiver can figure out the sizes of their sliding windows by themselves.
+* Implement different congestion control algorithms, and compares their pros and cons.
+* Design your own congestion control algorithms. You can try crazy ideas like using deep learning to learn good congestion control algorithms.
 
 ## Acknowledgements
 This programming assignment is based on UC Berkeley's Project 2 from EE 122: Introduction to Communication Networks.
