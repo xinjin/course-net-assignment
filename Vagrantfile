@@ -40,6 +40,7 @@ Vagrant.configure(2) do |config|
      sudo pip install jupyter
      sudo apt-get install -y gccgo-go
      sudo pip install -U tzupdate
+     sudo pip install scapy
      echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
 
      # Set correct permissions for bash scripts
