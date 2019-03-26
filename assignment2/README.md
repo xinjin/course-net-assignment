@@ -161,7 +161,7 @@ For students that find this assignment not challenging enough, you can
 * Complete it with C.
 * Allow the receiver to receive messages from multiple concurrent senders.
 * Add congestion control to the sender and receiver, so that the sender and receiver can figure out the sizes of their sliding windows by themselves.
-* Implement different congestion control algorithms, and compares their pros and cons.
+* Implement different congestion control algorithms, and compare their pros and cons.
 * Design your own congestion control algorithms. You can try crazy ideas like using deep learning to learn good congestion control algorithms.
 
 ## Acknowledgements
