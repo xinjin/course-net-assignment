@@ -14,6 +14,29 @@ from router import Router
 # argument so a syntax error in one of the files will not prevent the other
 # from being tested
 
+def json_load_byteified(file_handle):
+    return _byteify(
+        json.load(file_handle, object_hook=_byteify),
+        ignore_dicts=True
+    )
+
+def _byteify(data, ignore_dicts = False):
+    # if this is a unicode string, return its string representation
+    if isinstance(data, unicode):
+        return data.encode('utf-8')
+    # if this is a list of values, return list of byteified values
+    if isinstance(data, list):
+        return [ _byteify(item, ignore_dicts=True) for item in data ]
+    # if this is a dictionary, return dictionary of byteified keys and values
+    # but only if we haven't already byteified it
+    if isinstance(data, dict) and not ignore_dicts:
+        return {
+            _byteify(key, ignore_dicts=True): _byteify(value, ignore_dicts=True)
+            for key, value in data.iteritems()
+        }
+    # if it's anything else, return it in its original form
+    return data
+
 class Network:
     """Network class maintains all clients, routers, links, and confguration"""
 
@@ -24,7 +47,7 @@ class Network:
 
         # parse configuration details
         netJsonFile = open(netJsonFilepath, 'r')
-        netJson = json.load(netJsonFile)
+        netJson = json_load_byteified(netJsonFile)
         self.latencyMultiplier = 100
         self.endTime = netJson["endTime"] * self.latencyMultiplier
         self.visualize = visualize
@@ -115,7 +138,7 @@ class Network:
         if self.changes:
             self.handleChangesThread = handle_changes_thread(self)
             self.handleChangesThread.start()
-    
+
         if not self.visualize:
             signal.signal(signal.SIGINT, self.handleInterrupt)
             time.sleep(self.endTime/float(1000))
