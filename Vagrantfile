@@ -41,6 +41,7 @@ Vagrant.configure(2) do |config|
      sudo apt-get install -y gccgo-go
      sudo pip install -U tzupdate
      sudo pip install scapy
+     sudo apt-get install -y python-tk
      echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
 
      # Set correct permissions for bash scripts
