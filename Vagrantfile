@@ -42,6 +42,7 @@ Vagrant.configure(2) do |config|
      sudo pip install -U tzupdate
      sudo pip install scapy
      sudo apt-get install -y python-tk
+     sudo pip install networkx
      echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
 
      # Set correct permissions for bash scripts

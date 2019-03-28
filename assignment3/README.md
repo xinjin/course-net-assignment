@@ -14,7 +14,22 @@ Nearly all intra-domain routing algorithms used in real-world networks fall into
 
 ## Background
 
-Begin by reading the slides of Routing Fundamentals and Routing Algorithms. They provide enough information to design both the distance-vector and link-state routing algorithms. At a high level, in distance-vector routing, each node talks only to its directly connected neighbors, but it tells them everything it has learned (i.e. distance to all nodes);  in link-state routing, each node talks to all other nodes, but it tells them only what it knows for sure (i.e. only the state of its directly connected links).
+Begin by reading the slides of Routing Fundamentals and Routing Algorithms. They provide enough information to design both the distance-vector and link-state routing algorithms. At a high level, they work as follows. Your goal in this assignment is to turn this high-level description to actual working code.
+
+### Distance-Vector Routing
+
+* Each router keeps its own distance vector, which contains its distance to all destinations.
+* When a router receives a distance vector from a neighbor, it updates its own
+distance vector and the forwarding table.
+* Each router broadcasts its own distance vector to all neighbors when the distance vector changes. The broadcast is also done periodically if no detected change has occurred.
+* Each router **does not** broadcast the received distance vector to its neighbors. It **only** broadcasts its own distance vector to its neighbors.
+
+### Link-State Routing
+
+* Each router keeps its own link state and other nodes' link states it receives. The link state of a router contains the links and their weights between the router and its neighbors.
+* When a router receives a link state from its neighbor, it updates the stored link state and the forwarding table. **Then it broadcasts the link state to other neighbors.**
+* Each router broadcast its own link state to all neighbors when the link state changes. The broadcast is also done periodically if no detected change has occurred.
+* A sequence number is added to each link state message to distinguish between old and new link state messages. Each router stores the sequence number together with the link state. If a router receives a link state message with a smaller sequence number (i.e., an old link state message), the link state message is simple disregarded.
 
 ## Provided code
 
@@ -24,11 +39,11 @@ Open your terminal and `cd` into the `course-net-assignment` directory you downl
 
 Run `vagrant reload --provision` to install the needed libraries for this assignment and start the VM (no need to run `vagrant up` in addition).
 
-Then run `vagrant ssh` and `cd /vagrant` to enter the virtual machine just as you did in Assignment 1.  The provided code is located in the `/vagrant/assignment2` directory of your vagrant VM.
+Then run `vagrant ssh` and `cd /vagrant` to enter the virtual machine just as you did in Assignment 1.  The provided code is located in the `/vagrant/assignment3` directory of your vagrant VM.
 
 ### Familiarize yourself with the network simulator
 
-The provided code implements a network simulator that abstracts away many details of a real network, allowing you to focus on intra-domain routing algorithms.  Each `.json` file in the `assignment2` directory is the specification for a different network simulation with different numbers of routers, links, and link costs. Some of these simulations also contain link additions and/or failures that will occur at pre-specified times.  
+The provided code implements a network simulator that abstracts away many details of a real network, allowing you to focus on intra-domain routing algorithms.  Each `.json` file in the `assignment3` directory is the specification for a different network simulation with different numbers of routers, links, and link costs. Some of these simulations also contain link additions and/or failures that will occur at pre-specified times.  
 
 The network simulator can be run with or without a graphical interface. For example, the command `python visualize_network.py 01_small_net.json` will run the simulator on a simple network with 2 routers and 3 clients. The default router implementation returns all traffic back out the link on which it arrives. This is obviously a terrible routing algorithm, which your implementations will fix.
 
@@ -55,15 +70,17 @@ The arguments to these methods contain all the information you need to implement
 In addition to completing each of these methods, you are free to add additional fields (instance variables) or helper methods to the `DVrouter` and `LSrouter` classes.
 
 You will be graded on whether your solutions find lowest cost paths in the face of link failures and additions. Here are a few further simplifications:
-* Each client and router in the network simulation has a single static address. Do not worry about address prefixes, families, or masks
+* Each client and router in the network simulation has a single static address. Do not worry about address prefixes, families, or masks.
 
-* You do not need to worry about packet authentication and checksums. Assume that a lower layer protocol handles corruption checking
+* You do not need to worry about packet authentication and checksums. Assume that a lower layer protocol handles corruption checking.
 
 * As long your routers behave correctly when notified of link additions and failures, you do not need to worry about time-to-live (TTL) fields. The network simulations are short and routers/links will not fail silently.
 
-* The slides discuss the "count-to-infinity" problem for distance-vector routing.  You will need to handle this problem. You can use the heuristic discussed in the slides. Setting infinity = 16 is fine for the networks in this assignment.  
+* The slides discuss the "count-to-infinity" problem for distance-vector routing.  You will need to handle this problem. You can use the heuristic discussed in the slides. Setting infinity = 100 is fine for the networks in this assignment.  
 
 * Link-state routing involves reliably flooding link state updates.  You will need to use **sequence numbers** to distinguish new updates from old updates, but you will not need to check (via acknowledgements and retransmissions) that LSPs send successfully between adjacent routers. Assume that a lower-level protocol makes single-hop sends reliable.
+
+* Link-state routing involves computing shortest paths. You can choose to implement Dijkstra's algorithm, and the pseudo code is in the slides. Since this is a networking class instead of a data structures and algorithms class, you can also use a Python package like NetworkX. We have pre-installed the NetworkX package in the VM. You need to run `vagrant reload --provision` if you haven't done this already for this assignment.
 
 * Finally, LS and DV routing involve periodically sending routing information even if no detected change has occurred. This allows changes occurring far away in the network to propagate even if some routers do not change their routing tables in response to these changes (important for this assignment). It also allows detection of silent router failures (not tested in this assignment).  You implementations should send periodic routing packets every `heartbeatTime` milliseconds where `heartbeatTime` is an argument to the `DVrouter` or `LSrouter` constructor.  You will regularly get the current time in milliseconds as an argument to the `handleTime` method (see below).
 
@@ -83,7 +100,7 @@ There are limitations on what information your `DVrouter` and `LSrouter` classes
 These are the methods you need to complete in `DVrouter` and `LSrouter`:
 
 * `__init__(self, addr, heartbeatTime)`
-  * Class constructor. `addr` is the address of this router.  Add your own class fields and initialization code (e.g. to create routing table and/or forwarding table data structures). Routing information should be sent by this router at least once every `heartbeatTime` milliseconds.
+  * Class constructor. `addr` is the address of this router.  Add your own class fields and initialization code (e.g. to create forwarding table data structures). Routing information should be sent by this router at least once every `heartbeatTime` milliseconds.
 
 
 * `handlePacket(self, port, packet)`
