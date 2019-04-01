@@ -76,7 +76,7 @@ You will be graded on whether your solutions find lowest cost paths in the face 
 
 * As long your routers behave correctly when notified of link additions and failures, you do not need to worry about time-to-live (TTL) fields. The network simulations are short and routers/links will not fail silently.
 
-* The slides discuss the "count-to-infinity" problem for distance-vector routing.  You will need to handle this problem. You can use the heuristic discussed in the slides. Setting infinity = 100 is fine for the networks in this assignment.  
+* The slides discuss the "count-to-infinity" problem for distance-vector routing.  You will need to handle this problem. You can use the heuristic discussed in the slides. Setting infinity = 16 is fine for the networks in this assignment.  
 
 * Link-state routing involves reliably flooding link state updates.  You will need to use **sequence numbers** to distinguish new updates from old updates, but you will not need to check (via acknowledgements and retransmissions) that LSPs send successfully between adjacent routers. Assume that a lower-level protocol makes single-hop sends reliable.
 
