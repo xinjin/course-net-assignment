@@ -1,0 +1,68 @@
+{
+  "target": "bmv2",
+  "p4info": "build/load_balance.p4info",
+  "bmv2_json": "build/load_balance.json",
+  "table_entries": [
+    {
+      "table": "MyIngress.ecmp_group",
+      "default_action": true,
+      "action_name": "MyIngress.drop",
+      "action_params": { }
+    },
+    {
+      "table": "MyIngress.ecmp_group",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.10", 32]
+      },
+      "action_name": "MyIngress.set_ecmp_select",
+      "action_params": {
+        "ecmp_base": 0,
+        "ecmp_count": 2
+      }
+    },
+    {
+      "table": "MyIngress.ecmp_nhop",
+      "match": {
+        "meta.ecmp_select": 0
+      },
+      "action_name": "MyIngress.set_nhop",
+      "action_params": {
+        "nhop_dmac": "00:00:00:00:01:02",
+        "nhop_ipv4": "10.0.1.2",
+	      "port" : 2
+      }
+    },
+    {
+      "table": "MyIngress.ecmp_nhop",
+      "match": {
+        "meta.ecmp_select": 1
+      },
+      "action_name": "MyIngress.set_nhop",
+      "action_params": {
+        "nhop_dmac": "00:00:00:00:01:03",
+        "nhop_ipv4": "10.0.1.3",
+	      "port" : 3
+      }
+    },
+    {
+      "table": "MyEgress.send_frame",
+      "match": {
+        "standard_metadata.egress_port": 2
+      },
+      "action_name": "MyEgress.rewrite_mac",
+      "action_params": {
+        "smac": "00:00:00:00:01:02"
+      }
+    },
+    {
+      "table": "MyEgress.send_frame",
+      "match": {
+        "standard_metadata.egress_port": 3
+      },
+      "action_name": "MyEgress.rewrite_mac",
+      "action_params": {
+        "smac": "00:00:00:00:01:03"
+      }
+    }
+  ]
+}
