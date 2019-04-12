@@ -25,7 +25,7 @@ virtual machine or install several dependencies.
 
 To build the virtual machine:
 - Install [Vagrant](https://vagrantup.com) and [VirtualBox](https://virtualbox.org)
-- git clone https://github.com/xinjin/course-net-assignment.git
+- `git clone https://github.com/xinjin/course-net-assignment.git`
 - `cd assignment4/vm`
 - `vagrant up`. This will take about 1 hour or even longer.
 - Log in with username `p4` and password `p4` and issue the command `sudo shutdown -r now`
@@ -36,7 +36,7 @@ software pre-installed.
 
 You will need the script to execute to completion before you can see the `p4` login on your virtual machine's GUI. In some cases, the `vagrant up` command brings up only the default `vagrant` login with the password `vagrant`. Dependencies may or may not have been installed for you to proceed with running P4 programs. Please try from the beginning again.*
 
-To install dependencies by hand, please reference the [vm](../vm) installation scripts.
+To install dependencies by hand, please reference the [vm](vm) installation scripts.
 They contain the dependencies, versions, and installation procedure.
 You should be able to run them directly on an Ubuntu 16.04 machine, although note that the scripts currently assume the existence of a directory `/home/vagrant`:
 - `sudo ./root-bootstrap.sh`
@@ -48,12 +48,12 @@ Place yourself in the `assignment4/exercises/acl` directory.
 
 ### Step 1: Run the (incomplete) starter code
 
-The directory with this README also contains a skeleton P4 program,
+We provide a skeleton P4 program,
 `acl.p4`, which initially forwards all packets. Your job will be to
-extend this skeleton program to properly implement an ACL with two rules.
+extend this skeleton program to properly implement an ACL with two following rules:
 
-- drop all the UDP packets with dstPort=80
-- drop all the packets with dstIP=10.0.1.4
+  - drop all the UDP packets with dstPort=80
+  - drop all the packets with dstIP=10.0.1.4
 
 Before that, let's compile the incomplete `acl.p4` and bring
 up a switch in Mininet to test its behavior.
@@ -64,7 +64,7 @@ up a switch in Mininet to test its behavior.
    ```
    This will:
    * compile `acl.p4`, and
-   * start a Mininet instance with one switch (`s1`) connected to four host (`h1`, `h2`, `h3` and `h4`).
+   * start a Mininet instance with one switch (`s1`) connected to four hosts (`h1`, `h2`, `h3` and `h4`).
    * The hosts are assigned IPs of `10.0.1.1`, `10.0.1.2`, `10.0.1.3` and `10.0.1.4`.
 
 2. You should now see a Mininet command prompt. Open two terminals
