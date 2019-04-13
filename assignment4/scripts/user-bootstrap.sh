@@ -184,4 +184,4 @@ cd ..
 # sudo chown -R p4:p4 /home/p4/Desktop/
 
 # Do this last!
-sudo reboot
+# sudo reboot
