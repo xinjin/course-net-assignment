@@ -31,6 +31,7 @@ from mininet.cli import CLI
 
 from p4runtime_switch import P4RuntimeSwitch
 import p4runtime_lib.simple_controller
+import pdb
 
 def configureP4Switch(**switch_args):
     """ Helper class that is called by mininet to initialize
@@ -110,7 +111,7 @@ class ExerciseTopo(Topo):
             self.addSwitchPort(link['node1'], link['node2'])
             self.addSwitchPort(link['node2'], link['node1'])
 
-        self.printPortMapping()
+        # self.printPortMapping()
 
     def addSwitchPort(self, sw, node2):
         if sw not in self.sw_port_mapping:
@@ -192,7 +193,7 @@ class ExerciseRunner:
         self.bmv2_exe = bmv2_exe
 
 
-    def run_exercise(self):
+    def run_exercise(self, exercise):
         """ Sets up the mininet instance, programs the switches,
             and starts the mininet CLI. This is the main method to run after
             initializing the object.
@@ -208,8 +209,12 @@ class ExerciseRunner:
 
         # wait for that to finish. Not sure how to do this better
         sleep(1)
-
-        self.do_net_cli()
+        if exercise=="acl":
+            self.test_acl()
+        elif exercise=="lb":
+            self.test_lb()
+        else:
+            self.do_net_cli()
         # stop right after the CLI is exited
         self.net.stop()
 
@@ -337,6 +342,105 @@ class ExerciseRunner:
             h.cmd('ip route add %s dev %s' % (sw_ip, h_iface.name))
             h.setDefaultRoute("via %s" % sw_ip)
 
+    def test_acl(self):
+        print("=============== test_acl ==============")
+        h1 = self.net.get('h1')
+        h2 = self.net.get('h2')
+        h3 = self.net.get('h3')
+        h4 = self.net.get('h4')
+        # test tcp 80, h2 should receive msg
+        h2.cmd('python receive.py 80 > /tmp/h2.out &')
+        h1.cmd('python send.py 10.0.1.2 TCP 80 "P4 IS COOL"')
+        sleep(1)
+        f = open('/tmp/h2.out')
+
+        msg = None
+        for line in f.readlines():
+            # print "%d: %s" % ( lineno, line.strip() )
+            msg = line.strip()
+            break
+
+        f.close()
+        if msg != "P4 IS COOL":
+            print "acl test:1/3: cannot pass"
+        else:
+            print "acl test:1/3: pass"
+
+        h2.cmd('pkill receive.py')
+        sleep(0.5)
+
+        msg = None
+        # test udp 80, h2 shouldn't receive msg
+        h2.cmd('python receive.py 80 > /tmp/h2.out &')
+        h1.cmd('python send.py 10.0.1.2 UDP 80 "P4 IS COOL"')
+        sleep(1)
+        f = open('/tmp/h2.out')
+        lineno = 1
+        for line in f.readlines():
+            msg = line.strip()
+            break
+        f.close()
+        if msg != None:
+            print "acl test:2/3: cannot pass"
+        else:
+            print "acl test:2/3: pass"
+
+        h4.cmd('pkill receive.py')
+        sleep(0.5)
+        # test dstip=10.0.1.4, h4 shouldn't receive msg
+        h4.cmd('python receive.py 81 > /tmp/h4.out &')
+        h1.cmd('python send.py 10.0.1.4 UDP 81 "P4 IS COOL"')
+        sleep(1)
+        f = open('/tmp/h4.out')
+        msg = None
+        for line in f.readlines():
+            msg = line.strip()
+            break
+        f.close()
+        if msg != None:
+            print "acl test:3/3: cannot pass"
+        else:
+            print "acl test:3/3: pass"
+        # pdb.set_trace()
+
+    def test_lb(self):
+        print("=============== test_lb ==============")
+
+        h1 = self.net.get('h1')
+        h2 = self.net.get('h2')
+        h3 = self.net.get('h3')
+        h4 = self.net.get('h4')
+        # test tcp 80, h2 should receive msg
+        h2.cmd('python receive.py 1234 > /tmp/h2.out &')
+        h3.cmd('python receive.py 1234 > /tmp/h3.out &')
+        sleep(0.5)
+
+        packet_num = 100
+        for i in range(packet_num):
+            h1.cmd('python send.py 10.0.1.10 "P4 IS COOL"')
+            # sleep(0.1)
+
+        f = open('/tmp/h2.out')
+        h2_num = 0
+        for line in f.readlines():
+            msg = line.strip()
+            h2_num += 1
+        f.close()
+
+        f = open('/tmp/h3.out')
+        h3_num = 0
+        for line in f.readlines():
+            msg = line.strip()
+            h3_num += 1
+        f.close()
+
+        if (h2_num+h3_num)==packet_num:
+            if h2_num > packet_num*0.3 and h3_num > packet_num*0.3:
+                print "load_balance pass"
+            else:
+                print "load_balance cannot pass"
+        else:
+            print "load_balance cannot pass"
 
     def do_net_cli(self):
         """ Starts up the mininet CLI and prints some helpful output.
@@ -394,6 +498,8 @@ def get_args():
     parser.add_argument('-j', '--switch_json', type=str, required=False)
     parser.add_argument('-b', '--behavioral-exe', help='Path to behavioral executable',
                                 type=str, required=False, default='simple_switch')
+    parser.add_argument('-e', '--exercise', help='which exercise to test',
+                        type=str, required=False, default='no')
     return parser.parse_args()
 
 
@@ -405,5 +511,4 @@ if __name__ == '__main__':
     exercise = ExerciseRunner(args.topo, args.log_dir, args.pcap_dir,
                               args.switch_json, args.behavioral_exe, args.quiet)
 
-    exercise.run_exercise()
-
+    exercise.run_exercise(args.exercise)

@@ -26,6 +26,12 @@ all: run
 run: build
 	sudo python $(RUN_SCRIPT) -t $(TOPO) $(run_args)
 
+acl: build
+	sudo python $(RUN_SCRIPT) -t $(TOPO) -e "acl" $(run_args)
+
+lb: build
+	sudo python $(RUN_SCRIPT) -t $(TOPO) -e "lb" $(run_args)
+
 stop:
 	sudo mn -c
 

@@ -20,9 +20,9 @@ sudo ./util/install.sh -nwv
 cd ..
 
 # Protobuf
-git clone https://github.com/google/protobuf.git
+git clone --branch ${PROTOBUF_COMMIT} https://github.com/google/protobuf.git
 cd protobuf
-git checkout ${PROTOBUF_COMMIT}
+# git checkout ${PROTOBUF_COMMIT}
 export CFLAGS="-Os"
 export CXXFLAGS="-Os"
 export LDFLAGS="-Wl,-s"
@@ -38,9 +38,9 @@ sudo python setup.py install
 cd ../..
 
 # gRPC
-git clone https://github.com/grpc/grpc.git
+git clone --branch ${GRPC_COMMIT} https://github.com/grpc/grpc.git
 cd grpc
-git checkout ${GRPC_COMMIT}
+# git checkout ${GRPC_COMMIT}
 git submodule update --init --recursive
 export LDFLAGS="-Wl,-s"
 make -j${NUM_CORES}
@@ -106,82 +106,82 @@ mkdir -p build
 cd build
 cmake ..
 make -j${NUM_CORES}
-make -j${NUM_CORES} check
+# make -j${NUM_CORES} check
 sudo make install
 sudo ldconfig
 cd ..
 cd ..
 
 # Tutorials
-sudo pip install crcmod
-git clone https://github.com/p4lang/tutorials
-sudo mv tutorials /home/p4
-sudo chown -R p4:p4 /home/p4/tutorials
+# sudo pip install crcmod
+# git clone https://github.com/p4lang/tutorials
+# sudo mv tutorials /home/p4
+# sudo chown -R p4:p4 /home/p4/tutorials
 
 # Emacs
-sudo cp p4_16-mode.el /usr/share/emacs/site-lisp/
-sudo mkdir /home/p4/.emacs.d/
-echo "(autoload 'p4_16-mode' \"p4_16-mode.el\" \"P4 Syntax.\" t)" > init.el
-echo "(add-to-list 'auto-mode-alist '(\"\\.p4\\'\" . p4_16-mode))" | tee -a init.el
-sudo mv init.el /home/p4/.emacs.d/
-sudo ln -s /usr/share/emacs/site-lisp/p4_16-mode.el /home/p4/.emacs.d/p4_16-mode.el
-sudo chown -R p4:p4 /home/p4/.emacs.d/
+# sudo cp p4_16-mode.el /usr/share/emacs/site-lisp/
+# sudo mkdir /home/p4/.emacs.d/
+# echo "(autoload 'p4_16-mode' \"p4_16-mode.el\" \"P4 Syntax.\" t)" > init.el
+# echo "(add-to-list 'auto-mode-alist '(\"\\.p4\\'\" . p4_16-mode))" | tee -a init.el
+# sudo mv init.el /home/p4/.emacs.d/
+# sudo ln -s /usr/share/emacs/site-lisp/p4_16-mode.el /home/p4/.emacs.d/p4_16-mode.el
+# sudo chown -R p4:p4 /home/p4/.emacs.d/
 
 # Vim
-cd /home/vagrant
-mkdir .vim
-cd .vim
-mkdir ftdetect
-mkdir syntax
-echo "au BufRead,BufNewFile *.p4      set filetype=p4" >> ftdetect/p4.vim
-echo "set bg=dark" >> /home/vagrant/.vimrc
-sudo mv /home/vagrant/.vimrc /home/p4/.vimrc
-cp /home/vagrant/p4.vim syntax/p4.vim
-cd /home/vagrant
-sudo mv .vim /home/p4/.vim
-sudo chown -R p4:p4 /home/p4/.vim
-sudo chown p4:p4 /home/p4/.vimrc
+# cd /home/vagrant
+# mkdir .vim
+# cd .vim
+# mkdir ftdetect
+# mkdir syntax
+# echo "au BufRead,BufNewFile *.p4      set filetype=p4" >> ftdetect/p4.vim
+# echo "set bg=dark" >> /home/vagrant/.vimrc
+# sudo mv /home/vagrant/.vimrc /home/p4/.vimrc
+# cp /home/vagrant/p4.vim syntax/p4.vim
+# cd /home/vagrant
+# sudo mv .vim /home/p4/.vim
+# sudo chown -R p4:p4 /home/p4/.vim
+# sudo chown p4:p4 /home/p4/.vimrc
 
 # Adding Desktop icons
-DESKTOP=/home/${USER}/Desktop
-mkdir -p ${DESKTOP}
-
-cat > ${DESKTOP}/Terminal << EOF
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=Terminal
-Name[en_US]=Terminal
-Icon=konsole
-Exec=/usr/bin/x-terminal-emulator
-Comment[en_US]=
-EOF
-
-cat > ${DESKTOP}/Wireshark << EOF
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=Wireshark
-Name[en_US]=Wireshark
-Icon=wireshark
-Exec=/usr/bin/wireshark
-Comment[en_US]=
-EOF
-
-cat > ${DESKTOP}/Sublime\ Text << EOF
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=Sublime Text
-Name[en_US]=Sublime Text
-Icon=sublime-text
-Exec=/opt/sublime_text/sublime_text
-Comment[en_US]=
-EOF
-
-sudo mkdir -p /home/p4/Desktop
-sudo mv /home/${USER}/Desktop/* /home/p4/Desktop
-sudo chown -R p4:p4 /home/p4/Desktop/
+# DESKTOP=/home/${USER}/Desktop
+# mkdir -p ${DESKTOP}
+#
+# cat > ${DESKTOP}/Terminal << EOF
+# [Desktop Entry]
+# Encoding=UTF-8
+# Type=Application
+# Name=Terminal
+# Name[en_US]=Terminal
+# Icon=konsole
+# Exec=/usr/bin/x-terminal-emulator
+# Comment[en_US]=
+# EOF
+#
+# cat > ${DESKTOP}/Wireshark << EOF
+# [Desktop Entry]
+# Encoding=UTF-8
+# Type=Application
+# Name=Wireshark
+# Name[en_US]=Wireshark
+# Icon=wireshark
+# Exec=/usr/bin/wireshark
+# Comment[en_US]=
+# EOF
+#
+# cat > ${DESKTOP}/Sublime\ Text << EOF
+# [Desktop Entry]
+# Encoding=UTF-8
+# Type=Application
+# Name=Sublime Text
+# Name[en_US]=Sublime Text
+# Icon=sublime-text
+# Exec=/opt/sublime_text/sublime_text
+# Comment[en_US]=
+# EOF
+#
+# sudo mkdir -p /home/p4/Desktop
+# sudo mv /home/${USER}/Desktop/* /home/p4/Desktop
+# sudo chown -R p4:p4 /home/p4/Desktop/
 
 # Do this last!
 sudo reboot

@@ -33,15 +33,17 @@ class IPOption_MRI(IPOption):
                                    [],
                                    IntField("", 0),
                                    length_from=lambda pkt:pkt.count*4) ]
-def handle_pkt(pkt):
-    if TCP in pkt and pkt[TCP].dport == 1234:
-        print "got a packet"
-        pkt.show2()
+def handle_pkt(pkt, input_dport):
+    if TCP in pkt and pkt[TCP].dport == input_dport:
+        # print "got a packet"
+        # pkt.show2()
+        print(pkt.load)
     #    hexdump(pkt)
         sys.stdout.flush()
-    elif UDP in pkt:
-	print "got a packet"
-        pkt.show2()
+    elif UDP in pkt and pkt[UDP].dport == input_dport:
+	    # print "got a packet"
+        # pkt.show2()
+        print(pkt.load)
     #    hexdump(pkt)
         sys.stdout.flush()
 
@@ -49,10 +51,10 @@ def handle_pkt(pkt):
 def main():
     ifaces = filter(lambda i: 'eth' in i, os.listdir('/sys/class/net/'))
     iface = ifaces[0]
-    print "sniffing on %s" % iface
+    # print "sniffing on %s" % iface
     sys.stdout.flush()
     sniff(iface = iface,
-          prn = lambda x: handle_pkt(x))
+          prn = lambda x: handle_pkt(x, int(sys.argv[1])))
 
 if __name__ == '__main__':
     main()
