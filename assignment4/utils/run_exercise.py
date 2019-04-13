@@ -418,7 +418,7 @@ class ExerciseRunner:
         packet_num = 100
         for i in range(packet_num):
             h1.cmd('python send.py 10.0.1.10 "P4 IS COOL"')
-            # sleep(0.1)
+            sleep(0.1)
 
         f = open('/tmp/h2.out')
         h2_num = 0
@@ -433,7 +433,7 @@ class ExerciseRunner:
             msg = line.strip()
             h3_num += 1
         f.close()
-
+        # print h2_num, h3_num
         if (h2_num+h3_num)==packet_num:
             if h2_num > packet_num*0.3 and h3_num > packet_num*0.3:
                 print "load_balance pass"
