@@ -7,8 +7,6 @@
 Submit your source code for the two exercises, in two separate folders `acl` and `load_balance`, and together in one
 `assignment4.zip` file. For every exercise, submit the p4 code and the corresponding json file that configures the table entries.
 
-You can try implementing key-value store for bonus. The maximal bonus can be 2 points. Submit your p4 code and the corresponding json file in a folder called `kv_store` in the zip file.
-
 ## Introduction
 
 This assignment includes 2 exercises: *Access Control List*
@@ -20,31 +18,16 @@ knowledge and some familiarity with the P4 language. Please take a look at the
 
 ## Obtaining required software
 
-to complete the exercises, you will need to either build a
-virtual machine or install several dependencies.
+We provide a new VM for this assignment, under `course-net-assignment/assignment4/`.
 
 To build the virtual machine:
-- Install [Vagrant](https://vagrantup.com) and [VirtualBox](https://virtualbox.org)
-- `git clone https://github.com/xinjin/course-net-assignment.git`
-- `cd assignment4/vm`
+- update the `course-net-assignment` repo
+- `cd course-net-assignment/assignment4/`
 - `vagrant up`. This will take about 1 hour or even longer.
-- Log in with username `p4` and password `p4` and issue the command `sudo shutdown -r now`
-- When the machine reboots, you should have a graphical desktop machine with the required
-software pre-installed.
-
-*Note: Before running the `vagrant up` command, make sure you have enabled virtualization in your environment; otherwise you may get a "VT-x is disabled in the BIOS for both all CPU modes" error. Check [this](https://stackoverflow.com/questions/33304393/vt-x-is-disabled-in-the-bios-for-both-all-cpu-modes-verr-vmx-msr-all-vmx-disabl) for enabling it in virtualbox and/or BIOS for different system configurations.
-
-You will need the script to execute to completion before you can see the `p4` login on your virtual machine's GUI. In some cases, the `vagrant up` command brings up only the default `vagrant` login with the password `vagrant`. Dependencies may or may not have been installed for you to proceed with running P4 programs. Please try from the beginning again.*
-
-To install dependencies by hand, please reference the [vm](vm) installation scripts.
-They contain the dependencies, versions, and installation procedure.
-You should be able to run them directly on an Ubuntu 16.04 machine, although note that the scripts currently assume the existence of a directory `/home/vagrant`:
-- `sudo ./root-bootstrap.sh`
-- `sudo ./user-bootstrap.sh`
 
 ## Exercise 1: Access Control List
 
-Place yourself in the `assignment4/exercises/acl` directory.
+Place yourself in the `course-net-assignment/assignment4/exercises/acl` directory.
 
 ### Step 1: Run the (incomplete) starter code
 
@@ -226,36 +209,8 @@ Follow the instructions from Step 1.  This time, your message from
 `h1` should be delivered to `h2` or `h3`. If you send several
 messages, some should be received by each server.
 
+The bash script `test.sh` will run all the exercises with your own implementations. You may need to run `chmod 744 test.sh` first to make the script executable.  You can also pass "acl" or "lb" as an argument to `test.sh` (e.g. `test.sh acl`) to test only ACL implementation.
 
-## Bonus: Key-Value Store
-
-### What is key-value store
-
-A key-value store is a storage service. Each item in the key-value store has a key, which is the name of the item, and a value, which is the actual content of the item. A key-value store provides two basic funcions: `get(key)` and `put(key, value)`. The function `get(key)` gets the value of the corresponding key from the key-value store. The function `put(key, value)` updates the value of the corresponding key in the key-value store.
-
-### What you need to do
-
-You will implement a key-value store in the switch with P4. The key-value packets may look like this:
-```
-type (1 byte) | key (4 bytes) | value (4 bytes)
-```
-
-The tcp.dstPort is always set to be 100 for such key-value store packets.
-The type field indicates the type of the query, which can be 1 (get request), 2 (put request), 3 (get reply), and 4 (put reply). The key and value field contains the key and value of a item, respectively.
-
-For a `get` query, the type field should be 1 and the key field contains the key for the queried item. The value field is not meaningful. The switch should update the type field to 3, and update the value field based on the value stored in the switch. Then the switch sends the packet back to the sender as the reply.
-
-For a `put` query, the type field should be 2, the key field should contain the key for the queried item, and the value field should contain the new value of the item. The switch should update its key-value store with the new value, update the type field to 4, and then send the packet back to the sender as the reply.
-
-To make it simple, you do not need to implement sophisticated routing in this assignment. You can assume that the client is directly connect to the switch, and the switch simply sends the packet to the ingress port to reply to the client.
-
-You can use part of the code in ACL and Load Balance and implement the key-value store functionality. Set the size of the key-value store in the switch to be 100.
-
-### Performance requirement
-
-1. Open a terminal on host 1 with `xterm h1` and run `./kv.py`, you should be able to issue the `get` and `put` query with commands `put [key] [value]` and `get [key]`, for example `put 1 11` and `get 1`.
-2. You should receive reply messages from switch 1 on host 1 and display the type, key and value fields in each reply
-message.
 
 ### Hints
 
