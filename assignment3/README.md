@@ -10,7 +10,7 @@ The need to rapidly handle unexpected router or link failures, changing link cos
 
 Nearly all intra-domain routing algorithms used in real-world networks fall into one of two categories, distance-vector or link-state.  In this assignment, you will implement distributed  distance-vector and link-state routing algorithms in Python and test them with a provided network simulator.
 
-**This assignment can be done individually or in groups of 2 students. You are only required to implement either distance-vector or link-state. If you implement both, you can get a bouns of two points.**
+**This assignment can be done individually or in groups of 2 students. You are only required to implement either distance-vector or link-state. If you implement both, you can get a bonus of two points.**
 
 ## Background
 

@@ -1,0 +1,27 @@
+{
+  "target": "bmv2",
+  "p4info": "build/load_balance.p4info",
+  "bmv2_json": "build/load_balance.json",
+  "table_entries": [
+    {
+      "table": "MyEgress.send_frame",
+      "match": {
+        "standard_metadata.egress_port": 2
+      },
+      "action_name": "MyEgress.rewrite_mac",
+      "action_params": {
+        "smac": "00:00:00:00:01:02"
+      }
+    },
+    {
+      "table": "MyEgress.send_frame",
+      "match": {
+        "standard_metadata.egress_port": 3
+      },
+      "action_name": "MyEgress.rewrite_mac",
+      "action_params": {
+        "smac": "00:00:00:00:01:03"
+      }
+    }
+  ]
+}
