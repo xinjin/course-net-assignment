@@ -18,10 +18,10 @@ knowledge and some familiarity with the P4 language. Please take a look at the
 
 ## Obtaining required software
 
-We provide a new VM for this assignment, under `course-net-assignment/assignment4/`.
+We provide a new VM for this assignment. The vagrantfile is under `course-net-assignment/assignment4/`.
 
 To build the virtual machine:
-- update the `course-net-assignment` repo
+- get the latest `course-net-assignment` repo
 - `cd course-net-assignment/assignment4/`
 - `vagrant up`. This will take about 1 hour or even longer.
 
@@ -56,11 +56,11 @@ for `h1` and `h2`, respectively:
    mininet> xterm h1 h2
    ```
 3. Each host includes a small Python-based messaging client and
-server. In `h2`'s xterm, start the server:
+server. In `h2`'s xterm, go to the current exercise folder (`/assignment4/exercises/acl`) and start the server:
    ```bash
    ./receive.py
    ```
-4. In `h1`'s xterm, send a message to `h2`:
+4. In `h1`'s xterm, go to the current exercise folder (`/assignment4/exercises/acl`) and send a message to `h2`:
    ```bash
    ./send.py 10.0.1.2 UDP 80 "P4 is cool"
    ```
@@ -166,11 +166,11 @@ up a switch in Mininet to test its behavior.
    mininet> xterm h1 h2 h3
    ```   
 3. Each host includes a small Python-based messaging client and
-   server.  In `h2` and `h3`'s XTerms, start the servers:
+   server.  In `h2` and `h3`'s XTerms, go to the current exercise folder (`/assignment4/exercises/load_balance`) and start the servers:
    ```bash
    ./receive.py
    ```
-4. In `h1`'s XTerm, send a message from the client:
+4. In `h1`'s XTerm, go to the current exercise folder (`/assignment4/exercises/load_balance`) and send a message from the client:
    ```bash
    ./send.py 10.0.1.10 "P4 is cool"
    ```
@@ -216,3 +216,4 @@ The bash script `test.sh` will run all the exercises with your own implementatio
 
 1. You could open a second terminal on h1 and run an adjusted receive.py to receive and display reply messages.
 2. You can assume the key and value are both integers, and use key as the array index to access register.
+3. Do remember run `make stop` and `make clean` every time before you run your program.
