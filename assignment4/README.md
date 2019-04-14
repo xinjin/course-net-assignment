@@ -49,6 +49,7 @@ up a switch in Mininet to test its behavior.
    * compile `acl.p4`, and
    * start a Mininet instance with one switch (`s1`) connected to four hosts (`h1`, `h2`, `h3` and `h4`).
    * The hosts are assigned IPs of `10.0.1.1`, `10.0.1.2`, `10.0.1.3` and `10.0.1.4`.
+   The output of this command line may be useful when you debug.
 
 2. You should now see a Mininet command prompt. Open two terminals
 for `h1` and `h2`, respectively:
