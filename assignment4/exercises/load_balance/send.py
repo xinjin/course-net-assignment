@@ -30,7 +30,6 @@ def main():
     pkt =  Ether(src=get_if_hwaddr(iface), dst='ff:ff:ff:ff:ff:ff')
     src_port = random.randint(49152,65535)
     pkt = pkt /IP(dst=addr) / TCP(dport=1234, sport=src_port) / sys.argv[2]
-    print "src_port", src_port
     sendp(pkt, iface=iface, verbose=False)
 
 

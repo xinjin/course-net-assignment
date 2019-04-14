@@ -56,14 +56,15 @@ for `h1` and `h2`, respectively:
    mininet> xterm h1 h2
    ```
 3. Each host includes a small Python-based messaging client and
-server. In `h2`'s xterm, go to the current exercise folder (`/assignment4/exercises/acl`) and start the server:
+server. In `h2`'s xterm, go to the current exercise folder (`cd exercises/acl`) and start the server with the listening port:
    ```bash
-   ./receive.py
+   ./receive.py 80
    ```
-4. In `h1`'s xterm, go to the current exercise folder (`/assignment4/exercises/acl`) and send a message to `h2`:
+4. In `h1`'s xterm, go to the current exercise folder (`cd exercises/acl`) and send a message to `h2`:
    ```bash
    ./send.py 10.0.1.2 UDP 80 "P4 is cool"
    ```
+   The command line means `h1` will send a message to `10.0.1.2` with udp.dstport=80.
    The message will be received and displayed in `h2`.
 5. Type `exit` to leave each xterm and the Mininet command line.
    Then, to stop mininet:
@@ -151,7 +152,7 @@ up a switch in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   make
+   make run
    ```   
    This will:
    * compile `load_balance.p4`, and
@@ -166,11 +167,11 @@ up a switch in Mininet to test its behavior.
    mininet> xterm h1 h2 h3
    ```   
 3. Each host includes a small Python-based messaging client and
-   server.  In `h2` and `h3`'s XTerms, go to the current exercise folder (`/assignment4/exercises/load_balance`) and start the servers:
+   server.  In `h2` and `h3`'s XTerms, go to the current exercise folder (`cd exercises/load_balance`) and start the servers with listening port:
    ```bash
-   ./receive.py
+   ./receive.py 1234
    ```
-4. In `h1`'s XTerm, go to the current exercise folder (`/assignment4/exercises/load_balance`) and send a message from the client:
+4. In `h1`'s XTerm, go to the current exercise folder (`cd exercises/load_balance`) and send a message from the client:
    ```bash
    ./send.py 10.0.1.10 "P4 is cool"
    ```
