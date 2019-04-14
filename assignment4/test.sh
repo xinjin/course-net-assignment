@@ -1,6 +1,4 @@
 WORKSPACE=/vagrant/exercises
-# WORKSPACE=/home/netx/hz/assign4/exercises
-RESULT_FILE=test_result
 
 function test_lb {
   printf "\n========= lb test ============\n"
