@@ -156,7 +156,7 @@ up a switch in Mininet to test its behavior.
    ```   
    This will:
    * compile `load_balance.p4`, and
-   * start a Mininet instance with one switch (`s1`) connected to four host (`h1`, `h2`, `h3` and `h4`).
+   * start a Mininet instance with one switch (`s1`) connected to four hosts (`h1`, `h2`, `h3` and `h4`).
    * The hosts are assigned IPs of `10.0.1.1`, `10.0.1.2`, `10.0.1.3` and `10.0.1.4`.  
    * We use the IP address 10.0.1.10 to indicate traffic that should be
      load balanced between `h2` and `h3`.
@@ -175,7 +175,8 @@ up a switch in Mininet to test its behavior.
    ```bash
    ./send.py 10.0.1.10 "P4 is cool"
    ```
-   The message will not be received.
+   Run the above command line several times.
+   The message will not be received by `h2` or `h3`.
 5. Type `exit` to leave each XTerm and the Mininet command line.
 
 The message was not received because each switch is programmed with
@@ -217,4 +218,4 @@ The bash script `test.sh` will run all the exercises with your own implementatio
 
 1. You could open a second terminal on h1 and run an adjusted receive.py to receive and display reply messages.
 2. You can assume the key and value are both integers, and use key as the array index to access register.
-3. Do remember run `make stop` and `make clean` every time before you run your program.
+3. Do remember to run `make stop` and `make clean` every time before you relaunch your program.
