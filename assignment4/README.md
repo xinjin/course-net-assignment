@@ -171,6 +171,7 @@ up a switch in Mininet to test its behavior.
    ```bash
    ./receive.py 1234
    ```
+   You may need to run `chmod +x receive.py` to make your python script executable.
 4. In `h1`'s XTerm, go to the current exercise folder (`cd exercises/load_balance`) and send a message from the client:
    ```bash
    ./send.py 10.0.1.10 "P4 is cool"
