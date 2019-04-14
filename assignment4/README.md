@@ -60,7 +60,7 @@ server. In `h2`'s xterm, go to the current exercise folder (`cd exercises/acl`) 
    ```
 4. In `h1`'s xterm, go to the current exercise folder (`cd exercises/acl`) and send a message to `h2`:
    ```bash
-   ./send.py 10.0.1.2 UDP 80 "P4 is cool"
+   ./send.py 10.0.1.2 UDP 80 "P4 IS COOL"
    ```
    The command line means `h1` will send a message to `10.0.1.2` with udp.dstport=80.
    The message will be received and displayed in `h2`.
@@ -169,7 +169,7 @@ up a switch in Mininet to test its behavior.
    You may need to run `chmod +x receive.py` to make your python script executable.
 4. In `h1`'s XTerm, go to the current exercise folder (`cd exercises/load_balance`) and send a message from the client:
    ```bash
-   ./send.py 10.0.1.10 "P4 is cool"
+   ./send.py 10.0.1.10 "P4 IS COOL"
    ```
    Run the above command line several times.
    The message will not be received by `h2` or `h3`.
@@ -231,3 +231,11 @@ You must submit:
 * Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 95KRDN.
 
 As always, start early and feel free to ask questions on Piazza and in office hours.
+
+## Additional Challenges
+
+For students that find this assignment not challenging enough, you can read
+[NetCache](http://www.cs.jhu.edu/~xinjin/files/SOSP17_NetCache.pdf)
+and [NetChain](http://www.cs.jhu.edu/~xinjin/files/NSDI18_NetChain.pdf),
+implement them by yourselves, and think about new applications
+that can be built with programmable switches.

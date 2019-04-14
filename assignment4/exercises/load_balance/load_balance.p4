@@ -146,11 +146,8 @@ control MyIngress(inout headers hdr,
           default action: NoAction
     */
 
-    /* Hints: Do not forget to add rules to s1-acl.json. One rule should
-         drop packets with UDP port 80, by specifying {"hdr.udp.dstPort":
-         [80, 65535]} as "match". The other rule should drop packets with
-         IPv4 address 10.0.1.4, by specifing {"hdr.ipv4.dstAddr": ["10.0.1.4",
-         4294967295]} as "match".
+    /* Hints: Do not forget to add rules to s1-lb.json for both tables.
+         Use the existing rules in s1-acl.json and s1-lb.json as examples.
     */
 
     apply {
