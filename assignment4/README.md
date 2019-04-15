@@ -22,6 +22,9 @@ To build the virtual machine:
 - Use `vagrant up` to provision the VM and install the necessary dependencies. This will take about 1 hour or even longer.
 - Similar to previous assignments, you can use `vagrant ssh` to enter the VM and `vagrant suspend` to suspend the VM.
 
+
+Before you start this assignment, review the [lecture slides](https://github.com/xinjin/course-net/blob/master/slides/lec16_programmable.pptx) on programmable switches. In addition, the P4 [tutorial](P4_tutorial.pdf) and [cheatsheet](p4-cheat-sheet.pdf) are also helpful for this assignment.
+
 ## Exercise 1: Access Control List
 
 Place yourself in the `course-net-assignment/assignment4/exercises/acl` directory.
