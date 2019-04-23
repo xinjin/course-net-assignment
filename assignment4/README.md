@@ -202,7 +202,7 @@ A complete `load_balance.p4` will contain the following components:
 1. Header type definitions for Ethernet (`ethernet_t`), IPv4 (`ipv4_t`), TCP (`tcp_t`) and UDP (`udp_t`)..
 2. Parsers for Ethernet, IPv4, TCP or UDP headers.
 3. An action `drop()` to drop a packet, using `mark_to_drop()`.
-4. **TODO:** Two tables, which will respectively for selecting next hop:
+4. **TODO:** Two tables, which will respectively:
     1. Select the next hop
 	2. Set the dstip and egress port
 5. **TODO:** A control that applies the two tables in step 4.
