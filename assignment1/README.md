@@ -1,6 +1,6 @@
 # Assignment 1: Virtual Machine Setup & Socket Programming
 
-### Due: Friday, February 15
+### Due: Sunday, September 20
 
 Welcome to EN.601.414/614: Computer Networks! Through this and the following assignments, you will gain hands-on experience with real-world network programming.  You will write programs that allow your computer to communicate with another, be it across the room or across the world.
 
@@ -196,7 +196,7 @@ Here are some debugging tips. If you are still having trouble, ask a question on
 
 ### Submission and grading
 
-Submit the assignment by uploading your modified client and server files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 95KRDN.
+Submit the assignment by uploading your modified client and server files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 94BWPW.
 
 We will grade your assignments by running the `test_client_server.sh` script. Double check the specifications above and perform your own tests before submitting.
 
