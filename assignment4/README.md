@@ -202,12 +202,10 @@ A complete `load_balance.p4` will contain the following components:
 1. Header type definitions for Ethernet (`ethernet_t`), IPv4 (`ipv4_t`), TCP (`tcp_t`) and UDP (`udp_t`)..
 2. Parsers for Ethernet, IPv4, TCP or UDP headers.
 3. An action `drop()` to drop a packet, using `mark_to_drop()`.
-4. **TODO:** An action (called `set_ecmp_select`), which will:
-	1. Hashes the 5-tuple specified above using the `hash` extern
-	2. Stores the result in the `meta.ecmp_select` field
-5. **TODO:** A control that:
-    1. Applies the `ecmp_group` table.
-    2. Applies the `ecmp_nhop` table.
+4. **TODO:** Two tables, which will respectively:
+    1. Select the next hop
+	2. Set the dstip and egress port
+5. **TODO:** A control that applies the two tables in step 4.
 6. A `package` instantiation supplied with the parser, control, and deparser.
     > In general, a package also requires instances of checksum verification
     > and recomputation controls. These are not necessary for this assignment
