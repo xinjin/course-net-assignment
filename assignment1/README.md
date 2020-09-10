@@ -127,8 +127,8 @@ The following sections provide details for the client and server programs in eac
 **Note**: We recommend to finish the Python part first. It is easier than the C part. You gain more confidence after you finish the Python part.
 
 ### C
-The classic "Beej's Guide to Network Programming" is located here: https://beej.us/guide/bgnet/html/single/bgnet.html.
-The [system call section](https://beej.us/guide/bgnet/html/single/bgnet.html#syscalls) and [client/server example section](https://beej.us/guide/bgnet/html/single/bgnet.html#clientserver) will be most relevant. The man pages are also useful for looking up individual functions (e.g. `man socket`).
+The classic "Beej's Guide to Network Programming" is located here: https://beej.us/guide/bgnet/html/.
+The [system call section](https://beej.us/guide/bgnet/html/#system-calls-or-bust) and [client/server example section](https://beej.us/guide/bgnet/html/#client-server-background) will be most relevant. The man pages are also useful for looking up individual functions (e.g. `man socket`).
 
 **Note**:  You do not have go through these materials in detail. They only serves as references. You can read them if you want to learn more. We have provided **sufficient** scaffolding code for you. The code can **compile and run**. You only need to modify the relevant part that handles stdin and stdout. The goal of this assignment is to give your experience with writing socket programs in C and Python, so that you know what to do in the future if you are asked to write programs that require communication between computers.
 
