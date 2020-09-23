@@ -1,6 +1,6 @@
 # Assignment 2: Reliable Transport
 
-### Due: Friday, March 8
+### Due: Sunday, October 11
 
 ## Overview
 
@@ -151,7 +151,7 @@ You must submit:
 
 * The source code for `sender` and `receiver` from parts 1 and 2: all source files should be in a folder called `RTP-base`.
 * The source code for `sender` and `receiver` from part 3: all source files should be in a folder called `RTP-opt`.
-* Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 95KRDN.
+* Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 94BWPW.
 
 ## Additional Challenges
 
