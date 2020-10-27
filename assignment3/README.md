@@ -1,6 +1,6 @@
 # Assignment 3: Intra-Domain Routing Algorithms
 
-### Due: Monday, April 15
+### Due: Tuesday, November 10
 
 The Internet is composed of many independent networks (called autonomous systems) that must cooperate in order for packets to reach their destinations.  This necessitates different protocols and algorithms for routing packet within autonomous systems, where all routers are operated by the same entity, and between autonomous systems, where business agreements and other policy considerations affect routing decisions.
 
@@ -10,7 +10,7 @@ The need to rapidly handle unexpected router or link failures, changing link cos
 
 Nearly all intra-domain routing algorithms used in real-world networks fall into one of two categories, distance-vector or link-state.  In this assignment, you will implement distributed  distance-vector and link-state routing algorithms in Python and test them with a provided network simulator.
 
-**This assignment can be done individually or in groups of 2 students. You are only required to implement either distance-vector or link-state. If you implement both, you can get a bonus of two points.**
+**You are only required to implement either distance-vector or link-state. If you implement both, you can get a bonus of two points.**
 
 ## Background
 
@@ -174,7 +174,7 @@ You must submit:
 
 * The source code for `DVrouter.py` or `LSrouter.py`.
 * Bonus: If you submit both `DVrouter.py` and `LSrouter.py` and they pass all the tests, you can get a bonus of 2 points, in addition to the 10 points of this assignment.
-* Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 95KRDN.
+* Submit the assignment by uploading your files to [Gradescope](https://www.gradescope.com/). Join the course with entry code 94BWPW.
 
 We will run the network simulation using the provided json files. Your grade will be based on whether your algorithm finds the lowest cost paths and whether you have violated any of the restrictions listed above. We will also check that `DVrouter` actually runs a distance-vector algorithm and that `LSrouter` actually runs a link-state algorithm.
 
