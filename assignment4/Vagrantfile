@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "lasp/ubuntu16.04"
+  config.vm.box = "bento/ubuntu-16.04"
   config.ssh.forward_x11 = true
   config.vm.network "forwarded_port", guest: 8888, host: 8888
   config.vm.define "assign4" do |tutorial|
