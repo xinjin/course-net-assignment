@@ -1,6 +1,6 @@
 # Assignment 4: Programmable Networks
 
-### Due: Wednesday, May 1st
+### Due: Tuesday, December 8
 
 This assignment includes 2 exercises: *Access Control List (ACL)*
 and *Load Balancing*. Both exercises assume that you possess basic networking
